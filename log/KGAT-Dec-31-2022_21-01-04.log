@@ -1,0 +1,118 @@
+Sat 31 Dec 2022 21:01:04 INFO General Hyper Parameters: 
+gpu_id=0
+use_gpu=True
+seed=2020
+state=INFO
+reproducibility=True
+data_path=dataset/amazon-books
+show_progress=True
+
+Training Hyper Parameters: 
+checkpoint_dir=saved
+epochs=50
+train_batch_size=1024
+learner=adam
+learning_rate=0.001
+training_neg_sample_num=1
+training_neg_sample_distribution=uniform
+eval_step=1
+stopping_step=10
+
+Evaluation Hyper Parameters: 
+eval_setting=RO_RS,full
+group_by_user=True
+split_ratio=[0.8, 0.1, 0.1]
+leave_one_num=2
+real_time_process=False
+metrics=['Recall', 'MRR', 'NDCG', 'Hit', 'Precision']
+topk=[10]
+valid_metric=NDCG@10
+eval_batch_size=10240
+
+Dataset Hyper Parameters: 
+field_separator=	
+seq_separator= 
+USER_ID_FIELD=user_id
+ITEM_ID_FIELD=item_id
+RATING_FIELD=rating
+TIME_FIELD=timestamp
+seq_len=None
+LABEL_FIELD=label
+threshold=None
+NEG_PREFIX=neg_
+load_col={'inter': ['user_id', 'item_id', 'rating'], 'kg': ['head_id', 'relation_id', 'tail_id'], 'link': ['item_id', 'entity_id']}
+unload_col=None
+unused_col={'inter': ['rating']}
+additional_feat_suffix=None
+lowest_val=None
+highest_val=None
+equal_val=None
+not_equal_val=None
+max_user_inter_num=None
+min_user_inter_num=0
+max_item_inter_num=None
+min_item_inter_num=0
+fields_in_same_space=None
+preload_weight=None
+normalize_field=None
+normalize_all=None
+ITEM_LIST_LENGTH_FIELD=item_length
+LIST_SUFFIX=_list
+MAX_ITEM_LIST_LENGTH=50
+POSITION_FIELD=position_id
+HEAD_ENTITY_ID_FIELD=head_id
+TAIL_ENTITY_ID_FIELD=tail_id
+RELATION_ID_FIELD=relation_id
+ENTITY_ID_FIELD=entity_id
+
+
+Sat 31 Dec 2022 21:01:08 INFO Note: detected 72 virtual cores but NumExpr set to maximum of 64, check "NUMEXPR_MAX_THREADS" environment variable.
+Sat 31 Dec 2022 21:01:08 INFO Note: NumExpr detected 72 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+Sat 31 Dec 2022 21:01:59 INFO amazon-books
+The number of users: 8026325
+Average actions of users: 2.8041672626223413
+The number of items: 2330067
+Average actions of items: 9.659449560656222
+The number of inters: 22507155
+The sparsity of the dataset: 99.99987965294933%
+Remain Fields: ['entity_id', 'user_id', 'item_id', 'rating', 'head_id', 'relation_id', 'tail_id']
+The number of entities: 2409319
+The number of relations: 22
+The number of triples: 522475
+The number of items that have been linked to KG: 106591
+Sat 31 Dec 2022 21:04:28 INFO Build [ModelType.KNOWLEDGE] DataLoader for [train] with format [InputType.PAIRWISE]
+Sat 31 Dec 2022 21:04:28 INFO Evaluation Setting:
+	Group by user_id
+	Ordering: {'strategy': 'shuffle'}
+	Splitting: {'strategy': 'by_ratio', 'ratios': [0.8, 0.1, 0.1]}
+	Negative Sampling: {'strategy': 'by', 'distribution': 'uniform', 'by': 1}
+Sat 31 Dec 2022 21:04:28 INFO batch_size = [[1024]], shuffle = [True]
+
+Sat 31 Dec 2022 21:04:28 INFO Build [ModelType.KNOWLEDGE] DataLoader for [evaluation] with format [InputType.POINTWISE]
+Sat 31 Dec 2022 21:04:28 INFO Evaluation Setting:
+	Group by user_id
+	Ordering: {'strategy': 'shuffle'}
+	Splitting: {'strategy': 'by_ratio', 'ratios': [0.8, 0.1, 0.1]}
+	Negative Sampling: {'strategy': 'full', 'distribution': 'uniform'}
+Sat 31 Dec 2022 21:04:28 INFO batch_size = [[10240, 10240]], shuffle = [False]
+
+Sat 31 Dec 2022 21:04:35 WARNING Batch size is changed to 2330067.
+Sat 31 Dec 2022 21:04:41 WARNING Batch size is changed to 2330067.
+Sat 31 Dec 2022 21:05:29 INFO KGAT(
+  (user_embedding): Embedding(8026325, 16)
+  (entity_embedding): Embedding(2409319, 16)
+  (relation_embedding): Embedding(22, 64)
+  (trans_w): Embedding(22, 1024)
+  (aggregator_layers): ModuleList(
+    (0): Aggregator(
+      (message_dropout): Dropout(p=0.1, inplace=False)
+      (W1): Linear(in_features=16, out_features=64, bias=True)
+      (W2): Linear(in_features=16, out_features=64, bias=True)
+      (activation): LeakyReLU(negative_slope=0.01)
+    )
+  )
+  (tanh): Tanh()
+  (mf_loss): BPRLoss()
+  (reg_loss): EmbLoss()
+)
+Trainable parameters: 166996416
