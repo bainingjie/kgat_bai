@@ -1,0 +1,481 @@
+Tue 31 Jan 2023 01:41:32 INFO  ['recbole_test.py', '--seed', '2020', '--aggr', 'bi', '--opti', 'adam', '--is_swa', 'false', '--is_momentum', 'false']
+Tue 31 Jan 2023 01:41:32 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = /work/03/gu14/k36095/kgat_bai/recbole/config/../dataset_example/ml-100k
+checkpoint_dir = saved
+show_progress = True
+save_dataset = True
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 300
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'RS': [0.8, 0.1, 0.1]}, 'group_by': 'user', 'order': 'RO', 'mode': 'full'}
+repeatable = False
+metrics = ['Recall', 'MRR', 'NDCG', 'Hit', 'Precision']
+topk = [10]
+valid_metric = MRR@10
+valid_metric_bigger = True
+eval_batch_size = 4096
+metric_decimal_place = 4
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id', 'rating', 'timestamp'], 'kg': ['head_id', 'relation_id', 'tail_id'], 'link': ['item_id', 'entity_id']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = None
+item_inter_num_interval = None
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = True
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+benchmark_filename = None
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+embedding_size = 64
+kg_embedding_size = 64
+layers = [64]
+mess_dropout = 0.1
+reg_weight = 1e-05
+aggregator_type = bi
+numerical_features = []
+discretization = None
+MODEL_TYPE = ModelType.KNOWLEDGE
+is_swa = 0
+is_momentum = 0
+MODEL_INPUT_TYPE = InputType.PAIRWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cpu
+eval_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Tue 31 Jan 2023 01:41:33 INFO  Saving filtered dataset into [saved/ml-100k-dataset.pth]
+Tue 31 Jan 2023 01:41:33 INFO  ml-100k
+The number of users: 944
+Average actions of users: 103.4506892895016
+The number of items: 1599
+Average actions of items: 61.04755944931164
+The number of inters: 97554
+The sparsity of the dataset: 93.53714185772888%
+Remain Fields: ['entity_id', 'user_id', 'item_id', 'rating', 'timestamp', 'head_id', 'relation_id', 'tail_id']
+The number of entities: 34629
+The number of relations: 26
+The number of triples: 91631
+The number of items that have been linked to KG: 1598
+Tue 31 Jan 2023 01:41:34 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}]
+Tue 31 Jan 2023 01:41:34 INFO  [Evaluation]: eval_batch_size = [4096] eval_args: [{'split': {'RS': [0.8, 0.1, 0.1]}, 'group_by': 'user', 'order': 'RO', 'mode': 'full'}]
+Tue 31 Jan 2023 01:41:34 INFO  KGAT(
+  (user_embedding): Embedding(944, 64)
+  (entity_embedding): Embedding(34629, 64)
+  (relation_embedding): Embedding(26, 64)
+  (trans_w): Embedding(26, 4096)
+  (aggregator_layers): ModuleList(
+    (0): Aggregator(
+      (message_dropout): Dropout(p=0.1, inplace=False)
+      (W1): Linear(in_features=64, out_features=64, bias=True)
+      (W2): Linear(in_features=64, out_features=64, bias=True)
+      (activation): LeakyReLU(negative_slope=0.01)
+    )
+  )
+  (tanh): Tanh()
+  (mf_loss): BPRLoss()
+  (reg_loss): EmbLoss()
+)
+Trainable parameters: 2393152
+Tue 31 Jan 2023 01:41:35 INFO  FLOPs: 291414016.0
+Tue 31 Jan 2023 01:41:40 INFO  epoch 0 training [time: 4.98s, train_loss1: 23.6983, train_loss2: 29.7586]
+Tue 31 Jan 2023 01:41:40 INFO  epoch 0 evaluating [time: 0.20s, valid_score: 0.080700]
+Tue 31 Jan 2023 01:41:40 INFO  valid result: 
+recall@10 : 0.0336    mrr@10 : 0.0807    ndcg@10 : 0.0385    hit@10 : 0.2344    precision@10 : 0.0316
+Tue 31 Jan 2023 01:41:40 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:41:44 INFO  epoch 1 training [time: 3.89s, train_loss1: 21.2554, train_loss2: 19.7071]
+Tue 31 Jan 2023 01:41:44 INFO  epoch 1 evaluating [time: 0.19s, valid_score: 0.130800]
+Tue 31 Jan 2023 01:41:44 INFO  valid result: 
+recall@10 : 0.0698    mrr@10 : 0.1308    ndcg@10 : 0.0695    hit@10 : 0.3913    precision@10 : 0.0555
+Tue 31 Jan 2023 01:41:44 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:41:48 INFO  epoch 2 training [time: 3.86s, train_loss1: 18.9901, train_loss2: 12.3602]
+Tue 31 Jan 2023 01:41:48 INFO  epoch 2 evaluating [time: 0.19s, valid_score: 0.145500]
+Tue 31 Jan 2023 01:41:48 INFO  valid result: 
+recall@10 : 0.081    mrr@10 : 0.1455    ndcg@10 : 0.0775    hit@10 : 0.4083    precision@10 : 0.0598
+Tue 31 Jan 2023 01:41:48 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:41:52 INFO  epoch 3 training [time: 3.67s, train_loss1: 16.9279, train_loss2: 10.0777]
+Tue 31 Jan 2023 01:41:52 INFO  epoch 3 evaluating [time: 0.19s, valid_score: 0.162700]
+Tue 31 Jan 2023 01:41:52 INFO  valid result: 
+recall@10 : 0.096    mrr@10 : 0.1627    ndcg@10 : 0.0915    hit@10 : 0.4602    precision@10 : 0.0716
+Tue 31 Jan 2023 01:41:52 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:41:56 INFO  epoch 4 training [time: 3.79s, train_loss1: 16.4257, train_loss2: 8.9161]
+Tue 31 Jan 2023 01:41:56 INFO  epoch 4 evaluating [time: 0.19s, valid_score: 0.190900]
+Tue 31 Jan 2023 01:41:56 INFO  valid result: 
+recall@10 : 0.1109    mrr@10 : 0.1909    ndcg@10 : 0.11    hit@10 : 0.5027    precision@10 : 0.0842
+Tue 31 Jan 2023 01:41:56 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:00 INFO  epoch 5 training [time: 3.73s, train_loss1: 16.1854, train_loss2: 8.1665]
+Tue 31 Jan 2023 01:42:00 INFO  epoch 5 evaluating [time: 0.20s, valid_score: 0.222800]
+Tue 31 Jan 2023 01:42:00 INFO  valid result: 
+recall@10 : 0.1189    mrr@10 : 0.2228    ndcg@10 : 0.1226    hit@10 : 0.5186    precision@10 : 0.0872
+Tue 31 Jan 2023 01:42:00 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:04 INFO  epoch 6 training [time: 3.79s, train_loss1: 15.9396, train_loss2: 7.7568]
+Tue 31 Jan 2023 01:42:04 INFO  epoch 6 evaluating [time: 0.19s, valid_score: 0.229000]
+Tue 31 Jan 2023 01:42:04 INFO  valid result: 
+recall@10 : 0.113    mrr@10 : 0.229    ndcg@10 : 0.1216    hit@10 : 0.5154    precision@10 : 0.0861
+Tue 31 Jan 2023 01:42:04 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:08 INFO  epoch 7 training [time: 3.78s, train_loss1: 15.8086, train_loss2: 7.3765]
+Tue 31 Jan 2023 01:42:08 INFO  epoch 7 evaluating [time: 0.19s, valid_score: 0.216500]
+Tue 31 Jan 2023 01:42:08 INFO  valid result: 
+recall@10 : 0.1099    mrr@10 : 0.2165    ndcg@10 : 0.1182    hit@10 : 0.5005    precision@10 : 0.0855
+Tue 31 Jan 2023 01:42:12 INFO  epoch 8 training [time: 3.79s, train_loss1: 15.6265, train_loss2: 7.0013]
+Tue 31 Jan 2023 01:42:12 INFO  epoch 8 evaluating [time: 0.19s, valid_score: 0.229200]
+Tue 31 Jan 2023 01:42:12 INFO  valid result: 
+recall@10 : 0.1142    mrr@10 : 0.2292    ndcg@10 : 0.123    hit@10 : 0.5164    precision@10 : 0.088
+Tue 31 Jan 2023 01:42:12 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:16 INFO  epoch 9 training [time: 3.76s, train_loss1: 15.3678, train_loss2: 6.6668]
+Tue 31 Jan 2023 01:42:16 INFO  epoch 9 evaluating [time: 0.21s, valid_score: 0.225700]
+Tue 31 Jan 2023 01:42:16 INFO  valid result: 
+recall@10 : 0.1167    mrr@10 : 0.2257    ndcg@10 : 0.1239    hit@10 : 0.5164    precision@10 : 0.0898
+Tue 31 Jan 2023 01:42:20 INFO  epoch 10 training [time: 3.77s, train_loss1: 15.1231, train_loss2: 6.2585]
+Tue 31 Jan 2023 01:42:20 INFO  epoch 10 evaluating [time: 0.20s, valid_score: 0.237900]
+Tue 31 Jan 2023 01:42:20 INFO  valid result: 
+recall@10 : 0.1246    mrr@10 : 0.2379    ndcg@10 : 0.1317    hit@10 : 0.5483    precision@10 : 0.0947
+Tue 31 Jan 2023 01:42:20 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:24 INFO  epoch 11 training [time: 3.71s, train_loss1: 14.8221, train_loss2: 5.9504]
+Tue 31 Jan 2023 01:42:24 INFO  epoch 11 evaluating [time: 0.19s, valid_score: 0.246200]
+Tue 31 Jan 2023 01:42:24 INFO  valid result: 
+recall@10 : 0.1255    mrr@10 : 0.2462    ndcg@10 : 0.1351    hit@10 : 0.5493    precision@10 : 0.0964
+Tue 31 Jan 2023 01:42:24 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:28 INFO  epoch 12 training [time: 3.69s, train_loss1: 14.6149, train_loss2: 5.4540]
+Tue 31 Jan 2023 01:42:28 INFO  epoch 12 evaluating [time: 0.20s, valid_score: 0.261500]
+Tue 31 Jan 2023 01:42:28 INFO  valid result: 
+recall@10 : 0.1313    mrr@10 : 0.2615    ndcg@10 : 0.144    hit@10 : 0.5769    precision@10 : 0.1034
+Tue 31 Jan 2023 01:42:28 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:32 INFO  epoch 13 training [time: 3.67s, train_loss1: 14.2019, train_loss2: 5.1975]
+Tue 31 Jan 2023 01:42:32 INFO  epoch 13 evaluating [time: 0.19s, valid_score: 0.270600]
+Tue 31 Jan 2023 01:42:32 INFO  valid result: 
+recall@10 : 0.1383    mrr@10 : 0.2706    ndcg@10 : 0.1508    hit@10 : 0.5854    precision@10 : 0.1085
+Tue 31 Jan 2023 01:42:32 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:36 INFO  epoch 14 training [time: 3.78s, train_loss1: 13.8329, train_loss2: 4.9705]
+Tue 31 Jan 2023 01:42:36 INFO  epoch 14 evaluating [time: 0.19s, valid_score: 0.281500]
+Tue 31 Jan 2023 01:42:36 INFO  valid result: 
+recall@10 : 0.1468    mrr@10 : 0.2815    ndcg@10 : 0.1588    hit@10 : 0.6066    precision@10 : 0.1143
+Tue 31 Jan 2023 01:42:36 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:40 INFO  epoch 15 training [time: 3.83s, train_loss1: 13.5291, train_loss2: 4.8401]
+Tue 31 Jan 2023 01:42:40 INFO  epoch 15 evaluating [time: 0.19s, valid_score: 0.294800]
+Tue 31 Jan 2023 01:42:40 INFO  valid result: 
+recall@10 : 0.1517    mrr@10 : 0.2948    ndcg@10 : 0.1637    hit@10 : 0.6119    precision@10 : 0.1153
+Tue 31 Jan 2023 01:42:40 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:44 INFO  epoch 16 training [time: 3.73s, train_loss1: 13.1553, train_loss2: 4.5234]
+Tue 31 Jan 2023 01:42:44 INFO  epoch 16 evaluating [time: 0.19s, valid_score: 0.304500]
+Tue 31 Jan 2023 01:42:44 INFO  valid result: 
+recall@10 : 0.1561    mrr@10 : 0.3045    ndcg@10 : 0.1692    hit@10 : 0.6257    precision@10 : 0.1193
+Tue 31 Jan 2023 01:42:44 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:48 INFO  epoch 17 training [time: 3.77s, train_loss1: 12.7964, train_loss2: 4.3344]
+Tue 31 Jan 2023 01:42:48 INFO  epoch 17 evaluating [time: 0.19s, valid_score: 0.306500]
+Tue 31 Jan 2023 01:42:48 INFO  valid result: 
+recall@10 : 0.1602    mrr@10 : 0.3065    ndcg@10 : 0.1725    hit@10 : 0.6352    precision@10 : 0.1212
+Tue 31 Jan 2023 01:42:48 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:52 INFO  epoch 18 training [time: 3.82s, train_loss1: 12.3494, train_loss2: 4.0702]
+Tue 31 Jan 2023 01:42:52 INFO  epoch 18 evaluating [time: 0.19s, valid_score: 0.314200]
+Tue 31 Jan 2023 01:42:52 INFO  valid result: 
+recall@10 : 0.1656    mrr@10 : 0.3142    ndcg@10 : 0.1777    hit@10 : 0.6511    precision@10 : 0.1253
+Tue 31 Jan 2023 01:42:52 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:42:56 INFO  epoch 19 training [time: 3.81s, train_loss1: 12.0582, train_loss2: 3.9443]
+Tue 31 Jan 2023 01:42:56 INFO  epoch 19 evaluating [time: 0.19s, valid_score: 0.319100]
+Tue 31 Jan 2023 01:42:56 INFO  valid result: 
+recall@10 : 0.1717    mrr@10 : 0.3191    ndcg@10 : 0.1828    hit@10 : 0.6596    precision@10 : 0.1295
+Tue 31 Jan 2023 01:42:56 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:00 INFO  epoch 20 training [time: 3.83s, train_loss1: 11.7608, train_loss2: 3.7578]
+Tue 31 Jan 2023 01:43:00 INFO  epoch 20 evaluating [time: 0.19s, valid_score: 0.323200]
+Tue 31 Jan 2023 01:43:00 INFO  valid result: 
+recall@10 : 0.1746    mrr@10 : 0.3232    ndcg@10 : 0.1866    hit@10 : 0.6628    precision@10 : 0.1314
+Tue 31 Jan 2023 01:43:00 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:04 INFO  epoch 21 training [time: 3.82s, train_loss1: 11.4749, train_loss2: 3.5291]
+Tue 31 Jan 2023 01:43:04 INFO  epoch 21 evaluating [time: 0.19s, valid_score: 0.326600]
+Tue 31 Jan 2023 01:43:04 INFO  valid result: 
+recall@10 : 0.175    mrr@10 : 0.3266    ndcg@10 : 0.1886    hit@10 : 0.6617    precision@10 : 0.1324
+Tue 31 Jan 2023 01:43:04 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:08 INFO  epoch 22 training [time: 3.83s, train_loss1: 11.2321, train_loss2: 3.3145]
+Tue 31 Jan 2023 01:43:08 INFO  epoch 22 evaluating [time: 0.19s, valid_score: 0.331600]
+Tue 31 Jan 2023 01:43:08 INFO  valid result: 
+recall@10 : 0.1726    mrr@10 : 0.3316    ndcg@10 : 0.1896    hit@10 : 0.6607    precision@10 : 0.1324
+Tue 31 Jan 2023 01:43:09 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:12 INFO  epoch 23 training [time: 3.83s, train_loss1: 10.9382, train_loss2: 3.1615]
+Tue 31 Jan 2023 01:43:13 INFO  epoch 23 evaluating [time: 0.19s, valid_score: 0.342300]
+Tue 31 Jan 2023 01:43:13 INFO  valid result: 
+recall@10 : 0.1727    mrr@10 : 0.3423    ndcg@10 : 0.1925    hit@10 : 0.6702    precision@10 : 0.1339
+Tue 31 Jan 2023 01:43:13 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:16 INFO  epoch 24 training [time: 3.70s, train_loss1: 10.7511, train_loss2: 3.0396]
+Tue 31 Jan 2023 01:43:17 INFO  epoch 24 evaluating [time: 0.19s, valid_score: 0.350100]
+Tue 31 Jan 2023 01:43:17 INFO  valid result: 
+recall@10 : 0.1749    mrr@10 : 0.3501    ndcg@10 : 0.1962    hit@10 : 0.6744    precision@10 : 0.1346
+Tue 31 Jan 2023 01:43:17 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:20 INFO  epoch 25 training [time: 3.73s, train_loss1: 10.5781, train_loss2: 2.9008]
+Tue 31 Jan 2023 01:43:21 INFO  epoch 25 evaluating [time: 0.20s, valid_score: 0.352100]
+Tue 31 Jan 2023 01:43:21 INFO  valid result: 
+recall@10 : 0.1755    mrr@10 : 0.3521    ndcg@10 : 0.1971    hit@10 : 0.6766    precision@10 : 0.1357
+Tue 31 Jan 2023 01:43:21 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:24 INFO  epoch 26 training [time: 3.78s, train_loss1: 10.3742, train_loss2: 2.9326]
+Tue 31 Jan 2023 01:43:25 INFO  epoch 26 evaluating [time: 0.19s, valid_score: 0.354000]
+Tue 31 Jan 2023 01:43:25 INFO  valid result: 
+recall@10 : 0.1758    mrr@10 : 0.354    ndcg@10 : 0.1977    hit@10 : 0.6797    precision@10 : 0.1354
+Tue 31 Jan 2023 01:43:25 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:28 INFO  epoch 27 training [time: 3.79s, train_loss1: 10.1341, train_loss2: 2.7261]
+Tue 31 Jan 2023 01:43:29 INFO  epoch 27 evaluating [time: 0.19s, valid_score: 0.352100]
+Tue 31 Jan 2023 01:43:29 INFO  valid result: 
+recall@10 : 0.1776    mrr@10 : 0.3521    ndcg@10 : 0.1984    hit@10 : 0.6776    precision@10 : 0.1361
+Tue 31 Jan 2023 01:43:32 INFO  epoch 28 training [time: 3.75s, train_loss1: 10.1207, train_loss2: 2.6115]
+Tue 31 Jan 2023 01:43:33 INFO  epoch 28 evaluating [time: 0.19s, valid_score: 0.351300]
+Tue 31 Jan 2023 01:43:33 INFO  valid result: 
+recall@10 : 0.1804    mrr@10 : 0.3513    ndcg@10 : 0.1993    hit@10 : 0.6808    precision@10 : 0.1369
+Tue 31 Jan 2023 01:43:36 INFO  epoch 29 training [time: 3.69s, train_loss1: 9.8905, train_loss2: 2.5789]
+Tue 31 Jan 2023 01:43:36 INFO  epoch 29 evaluating [time: 0.19s, valid_score: 0.353500]
+Tue 31 Jan 2023 01:43:36 INFO  valid result: 
+recall@10 : 0.1833    mrr@10 : 0.3535    ndcg@10 : 0.2015    hit@10 : 0.6829    precision@10 : 0.1383
+Tue 31 Jan 2023 01:43:40 INFO  epoch 30 training [time: 3.80s, train_loss1: 9.7651, train_loss2: 2.4520]
+Tue 31 Jan 2023 01:43:40 INFO  epoch 30 evaluating [time: 0.19s, valid_score: 0.356800]
+Tue 31 Jan 2023 01:43:40 INFO  valid result: 
+recall@10 : 0.1826    mrr@10 : 0.3568    ndcg@10 : 0.2019    hit@10 : 0.6819    precision@10 : 0.1376
+Tue 31 Jan 2023 01:43:41 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:44 INFO  epoch 31 training [time: 3.68s, train_loss1: 9.6838, train_loss2: 2.3672]
+Tue 31 Jan 2023 01:43:44 INFO  epoch 31 evaluating [time: 0.19s, valid_score: 0.355100]
+Tue 31 Jan 2023 01:43:44 INFO  valid result: 
+recall@10 : 0.1843    mrr@10 : 0.3551    ndcg@10 : 0.2034    hit@10 : 0.6872    precision@10 : 0.1399
+Tue 31 Jan 2023 01:43:48 INFO  epoch 32 training [time: 3.80s, train_loss1: 9.4831, train_loss2: 2.3072]
+Tue 31 Jan 2023 01:43:48 INFO  epoch 32 evaluating [time: 0.19s, valid_score: 0.358700]
+Tue 31 Jan 2023 01:43:48 INFO  valid result: 
+recall@10 : 0.1837    mrr@10 : 0.3587    ndcg@10 : 0.2051    hit@10 : 0.6797    precision@10 : 0.1408
+Tue 31 Jan 2023 01:43:48 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:52 INFO  epoch 33 training [time: 3.66s, train_loss1: 9.4436, train_loss2: 2.1839]
+Tue 31 Jan 2023 01:43:52 INFO  epoch 33 evaluating [time: 0.19s, valid_score: 0.364600]
+Tue 31 Jan 2023 01:43:52 INFO  valid result: 
+recall@10 : 0.186    mrr@10 : 0.3646    ndcg@10 : 0.2077    hit@10 : 0.6819    precision@10 : 0.1422
+Tue 31 Jan 2023 01:43:52 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:43:56 INFO  epoch 34 training [time: 3.71s, train_loss1: 9.2632, train_loss2: 2.1315]
+Tue 31 Jan 2023 01:43:56 INFO  epoch 34 evaluating [time: 0.19s, valid_score: 0.363000]
+Tue 31 Jan 2023 01:43:56 INFO  valid result: 
+recall@10 : 0.1866    mrr@10 : 0.363    ndcg@10 : 0.2077    hit@10 : 0.6872    precision@10 : 0.1431
+Tue 31 Jan 2023 01:44:00 INFO  epoch 35 training [time: 3.67s, train_loss1: 9.3380, train_loss2: 2.2022]
+Tue 31 Jan 2023 01:44:00 INFO  epoch 35 evaluating [time: 0.19s, valid_score: 0.364400]
+Tue 31 Jan 2023 01:44:00 INFO  valid result: 
+recall@10 : 0.1871    mrr@10 : 0.3644    ndcg@10 : 0.2072    hit@10 : 0.6861    precision@10 : 0.1417
+Tue 31 Jan 2023 01:44:04 INFO  epoch 36 training [time: 3.81s, train_loss1: 9.0492, train_loss2: 2.0220]
+Tue 31 Jan 2023 01:44:04 INFO  epoch 36 evaluating [time: 0.19s, valid_score: 0.367000]
+Tue 31 Jan 2023 01:44:04 INFO  valid result: 
+recall@10 : 0.1879    mrr@10 : 0.367    ndcg@10 : 0.2087    hit@10 : 0.6861    precision@10 : 0.1439
+Tue 31 Jan 2023 01:44:04 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:44:08 INFO  epoch 37 training [time: 3.69s, train_loss1: 8.9963, train_loss2: 1.9865]
+Tue 31 Jan 2023 01:44:08 INFO  epoch 37 evaluating [time: 0.19s, valid_score: 0.368100]
+Tue 31 Jan 2023 01:44:08 INFO  valid result: 
+recall@10 : 0.1904    mrr@10 : 0.3681    ndcg@10 : 0.2099    hit@10 : 0.6925    precision@10 : 0.1441
+Tue 31 Jan 2023 01:44:08 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:44:12 INFO  epoch 38 training [time: 3.71s, train_loss1: 9.0458, train_loss2: 1.9370]
+Tue 31 Jan 2023 01:44:12 INFO  epoch 38 evaluating [time: 0.19s, valid_score: 0.364700]
+Tue 31 Jan 2023 01:44:12 INFO  valid result: 
+recall@10 : 0.1953    mrr@10 : 0.3647    ndcg@10 : 0.2124    hit@10 : 0.7031    precision@10 : 0.1474
+Tue 31 Jan 2023 01:44:16 INFO  epoch 39 training [time: 3.80s, train_loss1: 8.8297, train_loss2: 1.9431]
+Tue 31 Jan 2023 01:44:16 INFO  epoch 39 evaluating [time: 0.19s, valid_score: 0.371600]
+Tue 31 Jan 2023 01:44:16 INFO  valid result: 
+recall@10 : 0.1931    mrr@10 : 0.3716    ndcg@10 : 0.2127    hit@10 : 0.6967    precision@10 : 0.1445
+Tue 31 Jan 2023 01:44:16 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:44:20 INFO  epoch 40 training [time: 3.83s, train_loss1: 8.7730, train_loss2: 1.9051]
+Tue 31 Jan 2023 01:44:20 INFO  epoch 40 evaluating [time: 0.19s, valid_score: 0.374500]
+Tue 31 Jan 2023 01:44:20 INFO  valid result: 
+recall@10 : 0.1969    mrr@10 : 0.3745    ndcg@10 : 0.2157    hit@10 : 0.702    precision@10 : 0.1476
+Tue 31 Jan 2023 01:44:20 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:44:24 INFO  epoch 41 training [time: 3.82s, train_loss1: 8.6345, train_loss2: 1.8495]
+Tue 31 Jan 2023 01:44:24 INFO  epoch 41 evaluating [time: 0.19s, valid_score: 0.380000]
+Tue 31 Jan 2023 01:44:24 INFO  valid result: 
+recall@10 : 0.1927    mrr@10 : 0.38    ndcg@10 : 0.216    hit@10 : 0.6967    precision@10 : 0.147
+Tue 31 Jan 2023 01:44:24 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:44:28 INFO  epoch 42 training [time: 3.82s, train_loss1: 8.5542, train_loss2: 1.7895]
+Tue 31 Jan 2023 01:44:28 INFO  epoch 42 evaluating [time: 0.19s, valid_score: 0.374900]
+Tue 31 Jan 2023 01:44:28 INFO  valid result: 
+recall@10 : 0.1954    mrr@10 : 0.3749    ndcg@10 : 0.215    hit@10 : 0.7041    precision@10 : 0.1469
+Tue 31 Jan 2023 01:44:32 INFO  epoch 43 training [time: 3.75s, train_loss1: 8.4800, train_loss2: 1.7695]
+Tue 31 Jan 2023 01:44:32 INFO  epoch 43 evaluating [time: 0.19s, valid_score: 0.376200]
+Tue 31 Jan 2023 01:44:32 INFO  valid result: 
+recall@10 : 0.1947    mrr@10 : 0.3762    ndcg@10 : 0.2152    hit@10 : 0.7041    precision@10 : 0.1468
+Tue 31 Jan 2023 01:44:36 INFO  epoch 44 training [time: 3.76s, train_loss1: 8.2860, train_loss2: 1.8078]
+Tue 31 Jan 2023 01:44:36 INFO  epoch 44 evaluating [time: 0.19s, valid_score: 0.377700]
+Tue 31 Jan 2023 01:44:36 INFO  valid result: 
+recall@10 : 0.1966    mrr@10 : 0.3777    ndcg@10 : 0.2172    hit@10 : 0.7084    precision@10 : 0.1492
+Tue 31 Jan 2023 01:44:40 INFO  epoch 45 training [time: 3.69s, train_loss1: 8.2883, train_loss2: 1.7249]
+Tue 31 Jan 2023 01:44:40 INFO  epoch 45 evaluating [time: 0.19s, valid_score: 0.378400]
+Tue 31 Jan 2023 01:44:40 INFO  valid result: 
+recall@10 : 0.1994    mrr@10 : 0.3784    ndcg@10 : 0.2195    hit@10 : 0.7158    precision@10 : 0.152
+Tue 31 Jan 2023 01:44:44 INFO  epoch 46 training [time: 3.81s, train_loss1: 8.0907, train_loss2: 1.7180]
+Tue 31 Jan 2023 01:44:44 INFO  epoch 46 evaluating [time: 0.19s, valid_score: 0.378900]
+Tue 31 Jan 2023 01:44:44 INFO  valid result: 
+recall@10 : 0.197    mrr@10 : 0.3789    ndcg@10 : 0.2193    hit@10 : 0.7116    precision@10 : 0.1511
+Tue 31 Jan 2023 01:44:48 INFO  epoch 47 training [time: 3.66s, train_loss1: 8.0934, train_loss2: 1.6834]
+Tue 31 Jan 2023 01:44:48 INFO  epoch 47 evaluating [time: 0.19s, valid_score: 0.381600]
+Tue 31 Jan 2023 01:44:48 INFO  valid result: 
+recall@10 : 0.1979    mrr@10 : 0.3816    ndcg@10 : 0.2199    hit@10 : 0.7126    precision@10 : 0.1511
+Tue 31 Jan 2023 01:44:48 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:44:52 INFO  epoch 48 training [time: 3.82s, train_loss1: 7.9434, train_loss2: 1.6481]
+Tue 31 Jan 2023 01:44:52 INFO  epoch 48 evaluating [time: 0.19s, valid_score: 0.378300]
+Tue 31 Jan 2023 01:44:52 INFO  valid result: 
+recall@10 : 0.1995    mrr@10 : 0.3783    ndcg@10 : 0.2214    hit@10 : 0.7126    precision@10 : 0.1533
+Tue 31 Jan 2023 01:44:56 INFO  epoch 49 training [time: 3.74s, train_loss1: 7.9769, train_loss2: 1.6580]
+Tue 31 Jan 2023 01:44:56 INFO  epoch 49 evaluating [time: 0.19s, valid_score: 0.390300]
+Tue 31 Jan 2023 01:44:56 INFO  valid result: 
+recall@10 : 0.1992    mrr@10 : 0.3903    ndcg@10 : 0.2238    hit@10 : 0.7126    precision@10 : 0.1517
+Tue 31 Jan 2023 01:44:56 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:45:00 INFO  epoch 50 training [time: 3.77s, train_loss1: 7.8567, train_loss2: 1.5903]
+Tue 31 Jan 2023 01:45:00 INFO  epoch 50 evaluating [time: 0.19s, valid_score: 0.384100]
+Tue 31 Jan 2023 01:45:00 INFO  valid result: 
+recall@10 : 0.1993    mrr@10 : 0.3841    ndcg@10 : 0.2224    hit@10 : 0.7137    precision@10 : 0.1516
+Tue 31 Jan 2023 01:45:04 INFO  epoch 51 training [time: 3.81s, train_loss1: 7.6894, train_loss2: 1.5608]
+Tue 31 Jan 2023 01:45:04 INFO  epoch 51 evaluating [time: 0.19s, valid_score: 0.388900]
+Tue 31 Jan 2023 01:45:04 INFO  valid result: 
+recall@10 : 0.2027    mrr@10 : 0.3889    ndcg@10 : 0.2248    hit@10 : 0.719    precision@10 : 0.1523
+Tue 31 Jan 2023 01:45:08 INFO  epoch 52 training [time: 3.80s, train_loss1: 7.6375, train_loss2: 1.5183]
+Tue 31 Jan 2023 01:45:08 INFO  epoch 52 evaluating [time: 0.19s, valid_score: 0.391500]
+Tue 31 Jan 2023 01:45:08 INFO  valid result: 
+recall@10 : 0.2006    mrr@10 : 0.3915    ndcg@10 : 0.2249    hit@10 : 0.7232    precision@10 : 0.1526
+Tue 31 Jan 2023 01:45:08 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:45:12 INFO  epoch 53 training [time: 3.82s, train_loss1: 7.4624, train_loss2: 1.5213]
+Tue 31 Jan 2023 01:45:12 INFO  epoch 53 evaluating [time: 0.19s, valid_score: 0.388500]
+Tue 31 Jan 2023 01:45:12 INFO  valid result: 
+recall@10 : 0.2033    mrr@10 : 0.3885    ndcg@10 : 0.2253    hit@10 : 0.7264    precision@10 : 0.1534
+Tue 31 Jan 2023 01:45:16 INFO  epoch 54 training [time: 3.81s, train_loss1: 7.4999, train_loss2: 1.5098]
+Tue 31 Jan 2023 01:45:16 INFO  epoch 54 evaluating [time: 0.19s, valid_score: 0.391200]
+Tue 31 Jan 2023 01:45:16 INFO  valid result: 
+recall@10 : 0.2089    mrr@10 : 0.3912    ndcg@10 : 0.2287    hit@10 : 0.7317    precision@10 : 0.1557
+Tue 31 Jan 2023 01:45:20 INFO  epoch 55 training [time: 3.80s, train_loss1: 7.3663, train_loss2: 1.4440]
+Tue 31 Jan 2023 01:45:20 INFO  epoch 55 evaluating [time: 0.19s, valid_score: 0.393800]
+Tue 31 Jan 2023 01:45:20 INFO  valid result: 
+recall@10 : 0.2104    mrr@10 : 0.3938    ndcg@10 : 0.2295    hit@10 : 0.7349    precision@10 : 0.1566
+Tue 31 Jan 2023 01:45:20 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:45:24 INFO  epoch 56 training [time: 3.81s, train_loss1: 7.3889, train_loss2: 1.4917]
+Tue 31 Jan 2023 01:45:24 INFO  epoch 56 evaluating [time: 0.19s, valid_score: 0.394100]
+Tue 31 Jan 2023 01:45:24 INFO  valid result: 
+recall@10 : 0.2115    mrr@10 : 0.3941    ndcg@10 : 0.2297    hit@10 : 0.7391    precision@10 : 0.1563
+Tue 31 Jan 2023 01:45:24 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:45:28 INFO  epoch 57 training [time: 3.73s, train_loss1: 7.1939, train_loss2: 1.4196]
+Tue 31 Jan 2023 01:45:28 INFO  epoch 57 evaluating [time: 0.19s, valid_score: 0.396100]
+Tue 31 Jan 2023 01:45:28 INFO  valid result: 
+recall@10 : 0.2137    mrr@10 : 0.3961    ndcg@10 : 0.2325    hit@10 : 0.7391    precision@10 : 0.1587
+Tue 31 Jan 2023 01:45:28 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:45:32 INFO  epoch 58 training [time: 3.95s, train_loss1: 7.2179, train_loss2: 1.3773]
+Tue 31 Jan 2023 01:45:32 INFO  epoch 58 evaluating [time: 0.19s, valid_score: 0.396700]
+Tue 31 Jan 2023 01:45:32 INFO  valid result: 
+recall@10 : 0.2122    mrr@10 : 0.3967    ndcg@10 : 0.2312    hit@10 : 0.7423    precision@10 : 0.1572
+Tue 31 Jan 2023 01:45:32 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:45:36 INFO  epoch 59 training [time: 3.84s, train_loss1: 7.1117, train_loss2: 1.4001]
+Tue 31 Jan 2023 01:45:36 INFO  epoch 59 evaluating [time: 0.19s, valid_score: 0.392700]
+Tue 31 Jan 2023 01:45:36 INFO  valid result: 
+recall@10 : 0.2078    mrr@10 : 0.3927    ndcg@10 : 0.2298    hit@10 : 0.7338    precision@10 : 0.1563
+Tue 31 Jan 2023 01:45:40 INFO  epoch 60 training [time: 3.78s, train_loss1: 7.0316, train_loss2: 1.3416]
+Tue 31 Jan 2023 01:45:40 INFO  epoch 60 evaluating [time: 0.19s, valid_score: 0.393200]
+Tue 31 Jan 2023 01:45:40 INFO  valid result: 
+recall@10 : 0.2093    mrr@10 : 0.3932    ndcg@10 : 0.2299    hit@10 : 0.7402    precision@10 : 0.1563
+Tue 31 Jan 2023 01:45:44 INFO  epoch 61 training [time: 3.84s, train_loss1: 6.8915, train_loss2: 1.3579]
+Tue 31 Jan 2023 01:45:44 INFO  epoch 61 evaluating [time: 0.19s, valid_score: 0.390900]
+Tue 31 Jan 2023 01:45:44 INFO  valid result: 
+recall@10 : 0.2087    mrr@10 : 0.3909    ndcg@10 : 0.23    hit@10 : 0.7381    precision@10 : 0.1568
+Tue 31 Jan 2023 01:45:48 INFO  epoch 62 training [time: 3.82s, train_loss1: 6.8611, train_loss2: 1.3892]
+Tue 31 Jan 2023 01:45:48 INFO  epoch 62 evaluating [time: 0.19s, valid_score: 0.397000]
+Tue 31 Jan 2023 01:45:48 INFO  valid result: 
+recall@10 : 0.2066    mrr@10 : 0.397    ndcg@10 : 0.2298    hit@10 : 0.7402    precision@10 : 0.1547
+Tue 31 Jan 2023 01:45:49 INFO  Saving current: saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:45:52 INFO  epoch 63 training [time: 3.86s, train_loss1: 6.7932, train_loss2: 1.3031]
+Tue 31 Jan 2023 01:45:53 INFO  epoch 63 evaluating [time: 0.19s, valid_score: 0.391700]
+Tue 31 Jan 2023 01:45:53 INFO  valid result: 
+recall@10 : 0.2086    mrr@10 : 0.3917    ndcg@10 : 0.2301    hit@10 : 0.7338    precision@10 : 0.1562
+Tue 31 Jan 2023 01:45:56 INFO  epoch 64 training [time: 3.86s, train_loss1: 6.6852, train_loss2: 1.2907]
+Tue 31 Jan 2023 01:45:57 INFO  epoch 64 evaluating [time: 0.19s, valid_score: 0.393200]
+Tue 31 Jan 2023 01:45:57 INFO  valid result: 
+recall@10 : 0.2107    mrr@10 : 0.3932    ndcg@10 : 0.231    hit@10 : 0.7391    precision@10 : 0.1569
+Tue 31 Jan 2023 01:46:00 INFO  epoch 65 training [time: 3.86s, train_loss1: 6.7313, train_loss2: 1.3174]
+Tue 31 Jan 2023 01:46:01 INFO  epoch 65 evaluating [time: 0.19s, valid_score: 0.394100]
+Tue 31 Jan 2023 01:46:01 INFO  valid result: 
+recall@10 : 0.2054    mrr@10 : 0.3941    ndcg@10 : 0.2287    hit@10 : 0.7359    precision@10 : 0.1542
+Tue 31 Jan 2023 01:46:05 INFO  epoch 66 training [time: 3.85s, train_loss1: 6.6661, train_loss2: 1.2620]
+Tue 31 Jan 2023 01:46:05 INFO  epoch 66 evaluating [time: 0.19s, valid_score: 0.391500]
+Tue 31 Jan 2023 01:46:05 INFO  valid result: 
+recall@10 : 0.2075    mrr@10 : 0.3915    ndcg@10 : 0.2303    hit@10 : 0.7317    precision@10 : 0.1567
+Tue 31 Jan 2023 01:46:08 INFO  epoch 67 training [time: 3.70s, train_loss1: 6.6114, train_loss2: 1.2825]
+Tue 31 Jan 2023 01:46:09 INFO  epoch 67 evaluating [time: 0.19s, valid_score: 0.386700]
+Tue 31 Jan 2023 01:46:09 INFO  valid result: 
+recall@10 : 0.212    mrr@10 : 0.3867    ndcg@10 : 0.2307    hit@10 : 0.7349    precision@10 : 0.1579
+Tue 31 Jan 2023 01:46:13 INFO  epoch 68 training [time: 4.19s, train_loss1: 6.4357, train_loss2: 1.2071]
+Tue 31 Jan 2023 01:46:13 INFO  epoch 68 evaluating [time: 0.25s, valid_score: 0.394400]
+Tue 31 Jan 2023 01:46:13 INFO  valid result: 
+recall@10 : 0.2122    mrr@10 : 0.3944    ndcg@10 : 0.2325    hit@10 : 0.7338    precision@10 : 0.1583
+Tue 31 Jan 2023 01:46:18 INFO  epoch 69 training [time: 4.75s, train_loss1: 6.4391, train_loss2: 1.2438]
+Tue 31 Jan 2023 01:46:18 INFO  epoch 69 evaluating [time: 0.24s, valid_score: 0.388900]
+Tue 31 Jan 2023 01:46:18 INFO  valid result: 
+recall@10 : 0.2114    mrr@10 : 0.3889    ndcg@10 : 0.2303    hit@10 : 0.7317    precision@10 : 0.1575
+Tue 31 Jan 2023 01:46:23 INFO  epoch 70 training [time: 4.82s, train_loss1: 6.4420, train_loss2: 1.2173]
+Tue 31 Jan 2023 01:46:23 INFO  epoch 70 evaluating [time: 0.24s, valid_score: 0.393100]
+Tue 31 Jan 2023 01:46:23 INFO  valid result: 
+recall@10 : 0.2122    mrr@10 : 0.3931    ndcg@10 : 0.231    hit@10 : 0.7402    precision@10 : 0.1575
+Tue 31 Jan 2023 01:46:28 INFO  epoch 71 training [time: 4.81s, train_loss1: 6.3314, train_loss2: 1.1667]
+Tue 31 Jan 2023 01:46:28 INFO  epoch 71 evaluating [time: 0.24s, valid_score: 0.387200]
+Tue 31 Jan 2023 01:46:28 INFO  valid result: 
+recall@10 : 0.213    mrr@10 : 0.3872    ndcg@10 : 0.23    hit@10 : 0.7391    precision@10 : 0.1573
+Tue 31 Jan 2023 01:46:33 INFO  epoch 72 training [time: 4.71s, train_loss1: 6.2641, train_loss2: 1.2398]
+Tue 31 Jan 2023 01:46:33 INFO  epoch 72 evaluating [time: 0.24s, valid_score: 0.386500]
+Tue 31 Jan 2023 01:46:33 INFO  valid result: 
+recall@10 : 0.2152    mrr@10 : 0.3865    ndcg@10 : 0.2309    hit@10 : 0.7466    precision@10 : 0.1577
+Tue 31 Jan 2023 01:46:37 INFO  epoch 73 training [time: 4.18s, train_loss1: 6.2847, train_loss2: 1.1853]
+Tue 31 Jan 2023 01:46:38 INFO  epoch 73 evaluating [time: 0.19s, valid_score: 0.393700]
+Tue 31 Jan 2023 01:46:38 INFO  valid result: 
+recall@10 : 0.2143    mrr@10 : 0.3937    ndcg@10 : 0.2322    hit@10 : 0.7519    precision@10 : 0.1582
+Tue 31 Jan 2023 01:46:38 INFO  Finished training, best eval result in epoch 62
+Tue 31 Jan 2023 01:46:38 INFO  Loading model structure and parameters from saved/KGAT-Jan-31-2023_01-41-35.pth
+Tue 31 Jan 2023 01:46:38 INFO  best valid : OrderedDict([('recall@10', 0.2066), ('mrr@10', 0.397), ('ndcg@10', 0.2298), ('hit@10', 0.7402), ('precision@10', 0.1547)])
+Tue 31 Jan 2023 01:46:38 INFO  test result: OrderedDict([('recall@10', 0.2389), ('mrr@10', 0.4622), ('ndcg@10', 0.28), ('hit@10', 0.7603), ('precision@10', 0.1912)])

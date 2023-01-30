@@ -1,0 +1,4 @@
+bi,seed 2020 vs 2021
+
+source_model,dest_model,similarity
+KGAT-Jan-15-2023_17-53-21,KGAT-Jan-20-2023_15-53-38,0.46567796610169493

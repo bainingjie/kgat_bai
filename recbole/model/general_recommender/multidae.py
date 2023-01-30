@@ -22,7 +22,7 @@ from recbole.utils import InputType
 
 
 class MultiDAE(GeneralRecommender):
-    r"""MultiDAE is a item-based model collaborative filtering model that simultaneously rank all items for user .
+    r"""MultiDAE is an item-based collaborative filtering model that simultaneously ranks all items for each user.
 
     We implement the the MultiDAE model with only user dataloader.
     """
@@ -32,8 +32,8 @@ class MultiDAE(GeneralRecommender):
         super(MultiDAE, self).__init__(config, dataset)
 
         self.layers = config["mlp_hidden_size"]
-        self.lat_dim = config['latent_dimension']
-        self.drop_out = config['dropout_prob']
+        self.lat_dim = config["latent_dimension"]
+        self.drop_out = config["dropout_prob"]
 
         self.history_item_id, self.history_item_value, _ = dataset.history_item_matrix()
         self.history_item_id = self.history_item_id.to(self.device)
@@ -42,7 +42,7 @@ class MultiDAE(GeneralRecommender):
         self.encode_layer_dims = [self.n_items] + self.layers + [self.lat_dim]
         self.decode_layer_dims = [self.lat_dim] + self.encode_layer_dims[::-1][1:]
 
-        self.encoder = MLPLayers(self.encode_layer_dims, activation='tanh')
+        self.encoder = MLPLayers(self.encode_layer_dims, activation="tanh")
         self.decoder = self.mlp_layers(self.decode_layer_dims)
 
         # parameters initialization
@@ -59,10 +59,17 @@ class MultiDAE(GeneralRecommender):
         """
         # Following lines construct tensor of shape [B,n_items] using the tensor of shape [B,H]
         col_indices = self.history_item_id[user].flatten()
-        row_indices = torch.arange(user.shape[0]).to(self.device) \
+        row_indices = (
+            torch.arange(user.shape[0])
+            .to(self.device)
             .repeat_interleave(self.history_item_id.shape[1], dim=0)
-        rating_matrix = torch.zeros(1).to(self.device).repeat(user.shape[0], self.n_items)
-        rating_matrix.index_put_((row_indices, col_indices), self.history_item_value[user].flatten())
+        )
+        rating_matrix = (
+            torch.zeros(1).to(self.device).repeat(user.shape[0], self.n_items)
+        )
+        rating_matrix.index_put_(
+            (row_indices, col_indices), self.history_item_value[user].flatten()
+        )
         return rating_matrix
 
     def mlp_layers(self, layer_dims):
@@ -104,7 +111,7 @@ class MultiDAE(GeneralRecommender):
 
         scores = self.forward(rating_matrix)
 
-        return scores[[user, item]]
+        return scores[[torch.arange(len(item)).to(self.device), item]]
 
     def full_sort_predict(self, interaction):
 

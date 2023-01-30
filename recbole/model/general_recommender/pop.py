@@ -20,18 +20,19 @@ from recbole.utils import InputType, ModelType
 
 
 class Pop(GeneralRecommender):
-    r"""Pop is an fundamental model that always recommend the most popular item.
-
-    """
+    r"""Pop is an fundamental model that always recommend the most popular item."""
     input_type = InputType.POINTWISE
     type = ModelType.TRADITIONAL
 
     def __init__(self, config, dataset):
         super(Pop, self).__init__(config, dataset)
 
-        self.item_cnt = torch.zeros(self.n_items, 1, dtype=torch.long, device=self.device, requires_grad=False)
+        self.item_cnt = torch.zeros(
+            self.n_items, 1, dtype=torch.long, device=self.device, requires_grad=False
+        )
         self.max_cnt = None
         self.fake_loss = torch.nn.Parameter(torch.zeros(1))
+        self.other_parameter_name = ["item_cnt", "max_cnt"]
 
     def forward(self):
         pass
@@ -47,7 +48,7 @@ class Pop(GeneralRecommender):
     def predict(self, interaction):
         item = interaction[self.ITEM_ID]
         result = torch.true_divide(self.item_cnt[item, :], self.max_cnt)
-        return result.squeeze()
+        return result.squeeze(-1)
 
     def full_sort_predict(self, interaction):
         batch_user_num = interaction[self.USER_ID].shape[0]

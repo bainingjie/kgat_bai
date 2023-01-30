@@ -1,11 +1,15 @@
 # general
 gpu_id: 0
 use_gpu: True
-seed: 2020
+seed: 2022
 state: INFO
 reproducibility: True
-data_path: 'dataset/'
+data_path: 'dataset/ml-100k'
 checkpoint_dir: 'saved'
 show_progress: True
 save_dataset: True
-save_dataloaders: True
+save_dataloaders: False #trueだと、AttributeError: 'KnowledgeBasedDataLoader' object has no attribute 'generator'になる。
+aggregator_type: 'bi'
+# learning_rate: 0.0005
+learner: "rmsprop"
+# stopping_step: 300
